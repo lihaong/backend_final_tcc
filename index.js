@@ -3,7 +3,7 @@ import cors from 'cors';
 import UserRoute from './routes/UserRoute.js';
 
 const app = express();
-const PORT = 5000;
+const PORT = 8080;
 
 app.use(cors());
 app.use(express.json());
