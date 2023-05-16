@@ -1,10 +1,13 @@
-import express from "express";
-import cors from "cors";
-// import SupplierRoute from "./routes/SupplierRoute.js"
-import UserRoute from "./routes/UserRoute.js"
+import express from 'express';
+import userRoute from './routes/UserRoute.js';
+
 const app = express();
-app.use(cors());
 app.use(express.json());
-app.use(UserRoute);
-// app.use(SupplierRoute);
-app.listen(5000, ()=> console.log('Server up and running'))
+
+app.use(userRoute);
+
+// Start the server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
