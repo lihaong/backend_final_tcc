@@ -1,12 +1,21 @@
-import express from 'express';
-import * as UserController from '../controllers/UserController.js';
+import { DataTypes } from 'sequelize';
+import db from '../config/Database.js';
 
-const router = express.Router();
+const User = db.define('users', {
+  name: DataTypes.STRING,
+  email: DataTypes.STRING,
+  gender: DataTypes.STRING
+}, {
+  freezeTableName: true
+});
 
-router.get('/users', UserController.getUsers);
-router.get('/users/:id', UserController.getUserById);
-router.post('/users', UserController.createUser);
-router.patch('/users/:id', UserController.updateUser);
-router.delete('/users/:id', UserController.deleteUser);
+export default User;
 
-export default router;
+(async () => {
+  try {
+    await db.sync();
+    console.log('Database synchronized.');
+  } catch (error) {
+    console.error('Error synchronizing database:', error);
+  }
+})();
