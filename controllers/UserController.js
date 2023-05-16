@@ -29,7 +29,7 @@ export const getUserById = (req, res) => {
 export const createUser = (req, res) => {
   const { name, email, gender } = req.body;
   // Insert a new user into the database
-  pool.query('INSERT INTO users (name, email, gender) VALUES (?, ?, ?)', [name, email, gender], (err, results) => {
+  pool.query('INSERT INTO users (name, email, gender, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?)', [name, email, gender, new Date(), new Date()], (err, results) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: 'Internal server error' });
@@ -42,7 +42,7 @@ export const updateUser = (req, res) => {
   const userId = req.params.id;
   const { name, email, gender } = req.body;
   // Update a user in the database
-  pool.query('UPDATE users SET name = ?, email = ?, gender = ? WHERE id = ?', [name, email, gender, userId], (err, results) => {
+  pool.query('UPDATE users SET name = ?, email = ?, gender = ?, updatedAt = ? WHERE id = ?', [name, email, gender, new Date(), userId], (err, results) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: 'Internal server error' });
