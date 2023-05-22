@@ -1,18 +1,21 @@
-// import { Sequelize } from "sequelize";
-// import db from "../config/database.js";
+import { DataTypes } from 'sequelize';
+import db from '../config/Database.js';
 
-// const {DataTypes} = Sequelize;
+const User = db.define('users', {
+  name: DataTypes.STRING,
+  email: DataTypes.STRING,
+  address: DataTypes.STRING
+}, {
+  freezeTableName: true
+});
 
-// const Supplier = db.define('suppliers', {
-//     nama: DataTypes.STRING,
-//     email: DataTypes.STRING,
-//     alamat: DataTypes.STRING
-// },{
-//     freezeTableName:true
-// });
+export default User;
 
-// export default Supplier;
-
-// (async()=>{
-//     await db.sync();
-// })();
+(async () => {
+  try {
+    await db.sync();
+    console.log('Database synchronized.');
+  } catch (error) {
+    console.error('Error synchronizing database:', error);
+  }
+})();

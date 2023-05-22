@@ -1,57 +1,72 @@
-// import Supplier from "../models/SupplierModel.js";
-// export const getSuppliers = async(req, res) =>{
-//     try {
-//         const response = await Supplier.findAll();
-//         res.status(200).json(response);
-//     } catch (error) {
-//         console.log(error.message)
-//     }
-// }
+import User from '../models/UserModel.js';
 
-// export const getSupplierById = async(req, res) =>{
-//     try {
-//         const response = await Supplier.findOne({
-//             where:{
-//                 id: req.params.id
-//             }
-//         });
-//         res.status(200).json(response);
-//     } catch (error) {
-//         console.log(error.message)
-//     }
-// }
+export const getSuppliers = async (req, res) => {
+  try {
+    const response = await User.findAll();
+    res.status(200).json(response);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
 
-// export const createSupplier = async(req, res) =>{
-//     try {
-//         await Supplier.create(req.body);
-//         res.status(201).json({msg:"Supplier added"});
-//     } catch (error) {
-//         console.log(error.message)
-//     }
-// }
+export const getSupplierById = async (req, res) => {
+  try {
+    const response = await User.findOne({
+      where: {
+        id: req.params.id
+      }
+    });
+    if (!response) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.status(200).json(response);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
 
-// export const updateSupplier = async(req, res) =>{
-//     try {
-//         await Supplier.create(req.body,{
-//             where:{
-//                 id: req.params.id
-//             }
-//         });
-//         res.status(200).json({msg:"Supplier updated"});
-//     } catch (error) {
-//         console.log(error.message)
-//     }
-// }
+export const createSupplier = async (req, res) => {
+  try {
+    await User.create(req.body);
+    res.status(201).json({ msg: 'User Created' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
 
-// export const deleteSupplier = async(req, res) =>{
-//     try {
-//         await Supplier.destroy({
-//             where:{
-//                 id: req.params.id
-//             }
-//         });
-//         res.status(200).json({msg:"Supplier deleted"});
-//     } catch (error) {
-//         console.log(error.message)
-//     }
-// }
+export const updateSupplier = async (req, res) => {
+  try {
+    const [rowsAffected] = await User.update(req.body, {
+      where: {
+        id: req.params.id
+      }
+    });
+    if (rowsAffected === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.status(200).json({ msg: 'User Updated' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const deleteSupplier = async (req, res) => {
+  try {
+    const rowsAffected = await User.destroy({
+      where: {
+        id: req.params.id
+      }
+    });
+    if (rowsAffected === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.status(200).json({ msg: 'User Deleted' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
