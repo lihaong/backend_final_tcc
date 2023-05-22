@@ -1,8 +1,8 @@
-import User from '../models/UserModel.js';
+import Supplier from '../models/SupplierModel.js';
 
 export const getSuppliers = async (req, res) => {
   try {
-    const response = await User.findAll();
+    const response = await Supplier.findAll();
     res.status(200).json(response);
   } catch (error) {
     console.error(error);
@@ -12,13 +12,13 @@ export const getSuppliers = async (req, res) => {
 
 export const getSupplierById = async (req, res) => {
   try {
-    const response = await User.findOne({
+    const response = await Supplier.findOne({
       where: {
         id: req.params.id
       }
     });
     if (!response) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: 'Supplier not found' });
     }
     res.status(200).json(response);
   } catch (error) {
@@ -29,8 +29,8 @@ export const getSupplierById = async (req, res) => {
 
 export const createSupplier = async (req, res) => {
   try {
-    await User.create(req.body);
-    res.status(201).json({ msg: 'User Created' });
+    await Supplier.create(req.body);
+    res.status(201).json({ msg: 'Supplier Created' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -39,15 +39,15 @@ export const createSupplier = async (req, res) => {
 
 export const updateSupplier = async (req, res) => {
   try {
-    const [rowsAffected] = await User.update(req.body, {
+    const [rowsAffected] = await Supplier.update(req.body, {
       where: {
         id: req.params.id
       }
     });
     if (rowsAffected === 0) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: 'Supplier not found' });
     }
-    res.status(200).json({ msg: 'User Updated' });
+    res.status(200).json({ msg: 'Supplier Updated' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -56,15 +56,15 @@ export const updateSupplier = async (req, res) => {
 
 export const deleteSupplier = async (req, res) => {
   try {
-    const rowsAffected = await User.destroy({
+    const rowsAffected = await Supplier.destroy({
       where: {
         id: req.params.id
       }
     });
     if (rowsAffected === 0) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: 'Supplier not found' });
     }
-    res.status(200).json({ msg: 'User Deleted' });
+    res.status(200).json({ msg: 'Supplier Deleted' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import db from '../config/Database.js';
 
-const User = db.define('users', {
+const Supplier = db.define('suppliers', {
   name: DataTypes.STRING,
   email: DataTypes.STRING,
   address: DataTypes.STRING
@@ -9,7 +9,7 @@ const User = db.define('users', {
   freezeTableName: true
 });
 
-export default User;
+export default Supplier;
 
 (async () => {
   try {

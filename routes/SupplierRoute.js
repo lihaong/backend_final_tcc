@@ -1,6 +1,6 @@
 import express from 'express';
 import {
-  getSuppliers as getSuppliers,
+  getSuppliers,
   getSupplierById,
   createSupplier,
   updateSupplier,
@@ -9,9 +9,9 @@ import {
 
 const router = express.Router();
 
-router.get('suppliers', getSuppliers);
+router.get('/suppliers', getSuppliers);
 router.get('/suppliers/:id', getSupplierById);
-router.post('suppliers', createSupplier);
+router.post('/suppliers', createSupplier);
 router.patch('/suppliers/:id',updateSupplier);
 router.delete('/suppliers/:id', deleteSupplier);
 
